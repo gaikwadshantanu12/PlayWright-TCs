@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Form Visibility Test</title>
+  <title>Form Visibility Test with Dialog</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <div class="form-container">
     <form>
-        <center>
-            <h1>Fill the Form</h1>
-        </center>
+      <center>
+        <h1>Fill the Form</h1>
+      </center>
+
       <div class="form-group">
         <label class="form-label" for="name">Name</label>
         <input type="text" id="name" class="input-text" placeholder="Enter your name">
@@ -71,8 +73,55 @@
 
       <div class="form-group">
         <button type="submit" class="btn-submit">Submit</button>
+        <button type="button" class="btn-open-dialog" onclick="document.getElementById('popupModal').style.display='block'">Show Info</button>
       </div>
     </form>
   </div>
+
+  <!-- Modal Dialog -->
+  <div id="popupModal" class="modal-overlay">
+    <div class="modal-content">
+      <span class="modal-close" onclick="document.getElementById('popupModal').style.display='none'">&times;</span>
+      <h2>Scrollable Information Panel</h2>
+      <p>This dialog contains a lot of data with horizontal and vertical scrolling.</p>
+
+      <div class="scroll-box">
+        <table>
+          <thead>
+            <tr>
+              <th>Field 1</th><th>Field 2</th><th>Field 3</th><th>Field 4</th><th>Field 5</th><th>Field 6</th><th>Field 7</th><th>Field 8</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 25 rows for scroll -->
+            <!-- You can generate this dynamically if needed -->
+            <script>
+              const tbody = document.currentScript.parentElement;
+              for (let i = 1; i <= 25; i++) {
+                const row = document.createElement("tr");
+                for (let j = 1; j <= 8; j++) {
+                  const cell = document.createElement("td");
+                  cell.textContent = `R${i}C${j}`;
+                  row.appendChild(cell);
+                }
+                tbody.appendChild(row);
+              }
+            </script>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Close Modal on Outside Click -->
+  <script>
+    window.onclick = function(event) {
+      const modal = document.getElementById("popupModal");
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
 </body>
 </html>
